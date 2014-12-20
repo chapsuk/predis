@@ -66,4 +66,16 @@ class StringSetTest extends PredisCommandTestCase
         $this->assertTrue($redis->exists('foo'));
         $this->assertSame('bar', $redis->get('foo'));
     }
+
+    /**
+     * @group connected
+     */
+    public function testSetExpireResolution()
+    {
+        $redis = $this->getClient();
+        $redis->set('foo', 'bar', 'ex', 1000);
+        $this->assertTrue($redis->exists('foo'));
+        $this->assertSame('bar', $redis->get('foo'));
+        $this->assertSame(1000, $redis->ttl('foo'));
+    }
 }

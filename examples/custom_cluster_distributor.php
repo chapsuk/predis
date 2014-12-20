@@ -100,7 +100,7 @@ $options = array(
 $client = new Predis\Client($multiple_servers, $options);
 
 for ($i = 0; $i < 100; $i++) {
-    $client->set("key:$i", str_pad($i, 4, '0', 0));
+    $client->set("key:$i", str_pad($i, 4, '0', STR_PAD_LEFT));
     $client->get("key:$i");
 }
 
